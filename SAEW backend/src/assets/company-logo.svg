@@ -1,0 +1,12 @@
+﻿<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Star Auto Engineering Works logo</title>
+  <desc id="desc">Small left star and large angular white star mark.</desc>
+
+  <g fill="#ffffff">
+    <polygon points="95,340 118,387 170,387 128,418 144,475 95,440 46,475 62,418 20,387 72,387" />
+
+    <polygon points="430,70 560,390 325,390" />
+    <polygon points="560,390 960,390 645,624 765,995 450,760 95,995 250,600 425,735 365,535" />
+  </g>
+</svg>
+
