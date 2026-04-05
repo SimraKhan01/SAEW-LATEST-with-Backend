@@ -7,6 +7,7 @@ function HeroSection() {
         src="https://images.unsplash.com/photo-1759745125627-333e78bc1edc?auto=format&fit=crop&w=1920&q=80"
         alt="Excavator at a construction site"
         className="absolute inset-0 h-full w-full object-cover"
+        fetchPriority="high"
       />
       <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/40" />
       <div className="hero-glow absolute inset-0" />

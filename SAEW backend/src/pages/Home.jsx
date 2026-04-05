@@ -1,10 +1,11 @@
-import { useEffect } from "react"
+import { lazy, Suspense, useEffect } from "react"
 import HeroSection from "../components/HeroSection"
-import AboutSection from "../components/AboutSection"
-import ServicesSection from "../components/ServicesSection"
-import BrandsSection from "../components/BrandsSection"
-import WhyChooseSection from "../components/WhyChooseSection"
-import ContactSection from "../components/ContactSection"
+
+const AboutSection = lazy(() => import("../components/AboutSection"))
+const ServicesSection = lazy(() => import("../components/ServicesSection"))
+const BrandsSection = lazy(() => import("../components/BrandsSection"))
+const WhyChooseSection = lazy(() => import("../components/WhyChooseSection"))
+const ContactSection = lazy(() => import("../components/ContactSection"))
 
 function Home() {
   useEffect(() => {
@@ -37,11 +38,13 @@ function Home() {
   return (
     <>
       <HeroSection />
-      <AboutSection />
-      <ServicesSection />
-      <BrandsSection />
-      <WhyChooseSection />
-      <ContactSection />
+      <Suspense fallback={null}>
+        <AboutSection />
+        <ServicesSection />
+        <BrandsSection />
+        <WhyChooseSection />
+        <ContactSection />
+      </Suspense>
     </>
   )
 }

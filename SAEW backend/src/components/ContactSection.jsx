@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Mail, MapPin, Phone, Clock } from "lucide-react"
-import supabase from "../supabaseClient"
+import supabase, { isSupabaseConfigured } from "../supabaseClient"
 
 function ContactSection() {
   const [name, setName] = useState("")
@@ -17,35 +17,51 @@ function ContactSection() {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
+    if (status === "loading") return
+
+    const trimmedName = name.trim()
+    const trimmedPhone = phone.trim()
+    const trimmedServiceRequired = serviceRequired.trim()
+    const trimmedMessage = message.trim()
+
     setStatus("loading")
     setError("")
 
-    if (!import.meta.env.VITE_SUPABASE_URL || !import.meta.env.VITE_SUPABASE_ANON_KEY) {
-      setError("Supabase is not configured. Please fill .env with VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.")
+    if (!trimmedName || !trimmedPhone || !trimmedServiceRequired || !trimmedMessage) {
+      setError("Please fill in all required fields before submitting.")
       setStatus("error")
       return
     }
 
-    const { error: insertError } = await supabase.from("inquiries").insert([
-      {
-        name,
-        phone,
-        service_required: serviceRequired,
-        message,
-      },
-    ])
-
-    if (insertError) {
-      setError(insertError.message || "Unable to submit your inquiry.")
+    if (!isSupabaseConfigured) {
+      setError("Supabase is not configured. Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.")
       setStatus("error")
       return
     }
 
-    setStatus("success")
-    setName("")
-    setPhone("")
-    setServiceRequired("")
-    setMessage("")
+    try {
+      const { error: insertError } = await supabase.from("inquiries").insert([
+        {
+          name: trimmedName,
+          phone: trimmedPhone,
+          service_required: trimmedServiceRequired,
+          message: trimmedMessage,
+        },
+      ])
+
+      if (insertError) {
+        throw insertError
+      }
+
+      setStatus("success")
+      setName("")
+      setPhone("")
+      setServiceRequired("")
+      setMessage("")
+    } catch (submitError) {
+      setError(submitError?.message || "Unable to submit your inquiry right now. Please try again.")
+      setStatus("error")
+    }
   }
 
   return (

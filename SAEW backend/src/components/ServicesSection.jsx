@@ -49,20 +49,24 @@ function ServicesSection() {
         </p>
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {services.map(({ title, icon: Icon, desc }, index) => (
-            <article
-              key={title}
-              className="service-card rounded-lg bg-white p-8"
-              data-reveal
-              style={{ "--delay": `${index * 70}ms` }}
-            >
-              <div className="icon-container mb-5 grid h-14 w-14 place-content-center rounded-lg bg-[#B11217] text-white">
-                <Icon size={24} />
-              </div>
-              <h3 className="mb-2 font-[Oswald] text-xl text-[#0F0F0F]">{title}</h3>
-              <p className="font-[Roboto] text-gray-600">{desc}</p>
-            </article>
-          ))}
+          {services.map((service, index) => {
+            const ServiceIcon = service.icon
+
+            return (
+              <article
+                key={service.title}
+                className="service-card rounded-lg bg-white p-8"
+                data-reveal
+                style={{ "--delay": `${index * 70}ms` }}
+              >
+                <div className="icon-container mb-5 grid h-14 w-14 place-content-center rounded-lg bg-[#B11217] text-white">
+                  <ServiceIcon size={24} />
+                </div>
+                <h3 className="mb-2 font-[Oswald] text-xl text-[#0F0F0F]">{service.title}</h3>
+                <p className="font-[Roboto] text-gray-600">{service.desc}</p>
+              </article>
+            )
+          })}
         </div>
       </div>
     </section>

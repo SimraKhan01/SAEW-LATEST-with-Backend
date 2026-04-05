@@ -1,7 +1,9 @@
-import { useEffect } from "react"
+import { lazy, Suspense, useEffect } from "react"
+import { Navigate, Route, Routes } from "react-router-dom"
 import Header from "./components/Header"
 import Footer from "./components/Footer"
-import Home from "./pages/Home"
+
+const Home = lazy(() => import("./pages/Home"))
 
 function App() {
   useEffect(() => {
@@ -13,7 +15,12 @@ function App() {
     <div className="min-h-screen bg-white text-[#0F0F0F]">
       <Header />
       <main>
-        <Home />
+        <Suspense fallback={null}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </Suspense>
       </main>
       <Footer />
     </div>

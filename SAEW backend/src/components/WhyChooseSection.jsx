@@ -24,6 +24,13 @@ const features = [
   },
 ]
 
+const stats = [
+  { key: "years", value: 18, suffix: "+", label: "Years Experience" },
+  { key: "machines", value: 500, suffix: "+", label: "Machines Serviced" },
+  { key: "clients", value: 200, suffix: "+", label: "Happy Clients" },
+  { key: "support", value: 24, suffix: "/7", label: "Support Available" },
+]
+
 function WhyChooseSection() {
   const sectionRef = useRef(null)
   const hasAnimatedRef = useRef(false)
@@ -33,13 +40,6 @@ function WhyChooseSection() {
     clients: 0,
     support: 0,
   })
-
-  const stats = [
-    { key: "years", value: 18, suffix: "+", label: "Years Experience" },
-    { key: "machines", value: 500, suffix: "+", label: "Machines Serviced" },
-    { key: "clients", value: 200, suffix: "+", label: "Happy Clients" },
-    { key: "support", value: 24, suffix: "/7", label: "Support Available" },
-  ]
 
   useEffect(() => {
     const section = sectionRef.current
@@ -139,19 +139,23 @@ function WhyChooseSection() {
           clients
         </p>
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-          {features.map(({ title, icon: Icon, desc }, index) => (
-            <article
-              key={title}
-              className="feature-card text-center text-white"
-              style={{ transitionDelay: `${index * 80}ms` }}
-            >
-              <div className="icon-badge mx-auto mb-4 grid h-16 w-16 place-content-center rounded-full bg-[#B11217] text-white">
-                <Icon size={28} />
-              </div>
-              <h3 className="mb-2 font-[Oswald] text-lg text-white">{title}</h3>
-              <p className="font-[Roboto] text-sm text-gray-300">{desc}</p>
-            </article>
-          ))}
+          {features.map((feature, index) => {
+            const FeatureIcon = feature.icon
+
+            return (
+              <article
+                key={feature.title}
+                className="feature-card text-center text-white"
+                style={{ transitionDelay: `${index * 80}ms` }}
+              >
+                <div className="icon-badge mx-auto mb-4 grid h-16 w-16 place-content-center rounded-full bg-[#B11217] text-white">
+                  <FeatureIcon size={28} />
+                </div>
+                <h3 className="mb-2 font-[Oswald] text-lg text-white">{feature.title}</h3>
+                <p className="font-[Roboto] text-sm text-gray-300">{feature.desc}</p>
+              </article>
+            )
+          })}
         </div>
 
         <div className="mt-14 grid grid-cols-2 gap-8 text-center text-white md:grid-cols-4">

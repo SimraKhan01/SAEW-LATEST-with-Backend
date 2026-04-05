@@ -9,6 +9,8 @@ function AboutSection() {
             src="https://images.unsplash.com/photo-1758873263491-f3969d8c6fda?auto=format&fit=crop&w=1400&q=80"
             alt="Engineer repairing heavy equipment"
             className="reveal-image aspect-[4/3] h-full w-full object-cover"
+            loading="lazy"
+            decoding="async"
           />
           <div className="absolute bottom-6 right-6 hidden rounded-2xl bg-[#B11217] px-6 py-4 text-white shadow-lg md:block">
             <p className="text-3xl font-bold">18+</p>
